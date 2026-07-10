@@ -1,7 +1,7 @@
 # Robot Description primitive
 
 This primitive publishes the robot body model managed by Soma through ROS 2
-`robot_description_publisher`. Soma's `robonix/system/soma/get_urdf` gRPC API is the
+`robot_state_publisher`. Soma's `robonix/system/soma/get_urdf` gRPC API is the
 only URDF input. The package has no URDF path, model file, or per-deployment
 body configuration of its own.
 

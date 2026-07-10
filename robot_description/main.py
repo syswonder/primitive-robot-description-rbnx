@@ -63,7 +63,7 @@ def init(_cfg: dict):
         _process = subprocess.Popen(command)
         time.sleep(1.0)
         if _process.poll() is not None:
-            return Err(f"robot_description_publisher exited with rc={_process.returncode}")
+            return Err(f"robot_state_publisher exited with rc={_process.returncode}")
         return Ok()
     except Exception as exc:  # noqa: BLE001
         stop_process(_process, CONTAINER_NAME)

@@ -46,8 +46,8 @@ def command_for(mode: str, params_path: Path, container_name: str) -> list[str]:
     ros_args = [
         "ros2",
         "run",
-        "robot_description_publisher",
-        "robot_description_publisher",
+        "robot_state_publisher",
+        "robot_state_publisher",
         "--ros-args",
         "--params-file",
     ]

@@ -15,7 +15,7 @@ case "$MODE" in
         set +u
         source "/opt/ros/${ROS_DISTRO:-humble}/setup.bash"
         set -u
-        ros2 pkg prefix robot_description_publisher >/dev/null
+        ros2 pkg prefix robot_state_publisher >/dev/null
         ros2 pkg prefix rmw_zenoh_cpp >/dev/null
         ;;
     docker)
