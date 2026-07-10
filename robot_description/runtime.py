@@ -8,7 +8,7 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 
 
-IMAGE = "robonix/primitive-robot-state:humble"
+IMAGE = "robonix/primitive-robot-description:humble"
 
 
 def inspect_urdf(urdf_xml: str) -> tuple[str, int, int]:
@@ -46,15 +46,15 @@ def command_for(mode: str, params_path: Path, container_name: str) -> list[str]:
     ros_args = [
         "ros2",
         "run",
-        "robot_state_publisher",
-        "robot_state_publisher",
+        "robot_description_publisher",
+        "robot_description_publisher",
         "--ros-args",
         "--params-file",
     ]
     if mode == "native":
         return [*ros_args, str(params_path)]
     if mode != "docker":
-        raise ValueError(f"ROBONIX_ROBOT_STATE_MODE must be native or docker, got {mode!r}")
+        raise ValueError(f"ROBONIX_ROBOT_DESCRIPTION_MODE must be native or docker, got {mode!r}")
 
     command = [
         "docker",

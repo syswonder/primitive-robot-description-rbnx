@@ -2,7 +2,7 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 import unittest
 
-from robot_state.runtime import command_for, inspect_urdf, write_params
+from robot_description.runtime import command_for, inspect_urdf, write_params
 
 
 URDF = """<robot name="test">
@@ -28,7 +28,7 @@ class RuntimeTest(unittest.TestCase):
         self.assertIn('<robot name="test">', text)
 
     def test_native_command(self):
-        command = command_for("native", Path("/tmp/robot.yaml"), "robot_state")
+        command = command_for("native", Path("/tmp/robot.yaml"), "robot_description")
         self.assertEqual(command[-2:], ["--params-file", "/tmp/robot.yaml"])
 
 

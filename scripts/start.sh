@@ -14,5 +14,5 @@ else
     export PYTHONPATH="$PKG/rbnx-build/codegen/proto_gen:$PKG:${PYTHONPATH:-}"
 fi
 
-exec python3 -m robot_state.main
+exec python3 -m robot_description.main
 

@@ -14,12 +14,12 @@ from robonix_api import Err, Ok, Primitive
 from .runtime import command_for, inspect_urdf, stop_process, write_params
 
 
-logging.basicConfig(level=logging.INFO, format="[robot_state] %(message)s")
-log = logging.getLogger("robot_state")
+logging.basicConfig(level=logging.INFO, format="[robot_description] %(message)s")
+log = logging.getLogger("robot_description")
 
-PROVIDER_ID = os.environ.get("RBNX_INSTANCE_NAME", "robot_state")
+PROVIDER_ID = os.environ.get("RBNX_INSTANCE_NAME", "robot_description")
 CONTAINER_NAME = f"robonix_{PROVIDER_ID}"
-cap = Primitive(id=PROVIDER_ID, namespace="robonix/primitive/robot_state")
+cap = Primitive(id=PROVIDER_ID, namespace="robonix/primitive/robot_description")
 _process: subprocess.Popen[bytes] | None = None
 
 
@@ -49,7 +49,7 @@ def init(_cfg: dict):
         root_link, links, joints = inspect_urdf(urdf_xml)
         params_path = Path(os.environ.get("RBNX_PACKAGE_ROOT", Path.cwd())) / "rbnx-build" / "runtime" / "robot_description.yaml"
         write_params(params_path, urdf_xml)
-        mode = os.environ.get("ROBONIX_ROBOT_STATE_MODE", "docker").strip().lower()
+        mode = os.environ.get("ROBONIX_ROBOT_DESCRIPTION_MODE", "docker").strip().lower()
         command = command_for(mode, params_path, CONTAINER_NAME)
         log.info(
             "Soma robot=%s root=%s links=%d joints=%d mode=%s rmw=%s",
@@ -63,7 +63,7 @@ def init(_cfg: dict):
         _process = subprocess.Popen(command)
         time.sleep(1.0)
         if _process.poll() is not None:
-            return Err(f"robot_state_publisher exited with rc={_process.returncode}")
+            return Err(f"robot_description_publisher exited with rc={_process.returncode}")
         return Ok()
     except Exception as exc:  # noqa: BLE001
         stop_process(_process, CONTAINER_NAME)
