@@ -5,6 +5,9 @@ cd "$PKG"
 
 set +u
 source "/opt/ros/${ROS_DISTRO:-humble}/setup.bash"
+if [[ -f "$PKG/rbnx-build/codegen/ros2_idl/install/setup.bash" ]]; then
+    source "$PKG/rbnx-build/codegen/ros2_idl/install/setup.bash"
+fi
 set -u
 export RMW_IMPLEMENTATION="${RMW_IMPLEMENTATION:-rmw_zenoh_cpp}"
 
@@ -15,4 +18,3 @@ else
 fi
 
 exec python3 -m robot_description.main
-

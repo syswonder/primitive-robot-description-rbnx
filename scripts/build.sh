@@ -8,7 +8,14 @@ if [[ "${RBNX_BUILD_CLEAN:-}" == "1" ]]; then
     rm -rf rbnx-build
 fi
 mkdir -p rbnx-build/runtime
-rbnx codegen -p "$PKG" --out-dir "$PKG/rbnx-build/codegen"
+rbnx codegen -p "$PKG" --ros2 --out-dir "$PKG/rbnx-build/codegen"
+
+set +u
+source "/opt/ros/${ROS_DISTRO:-humble}/setup.bash"
+set -u
+ROS2_IDL="$PKG/rbnx-build/codegen/ros2_idl"
+echo "[robot_description/build] colcon build (Robonix ROS 2 interfaces)"
+(cd "$ROS2_IDL" && colcon build)
 
 case "$MODE" in
     native)
@@ -30,4 +37,3 @@ esac
 python3 -m unittest discover -s tests -v
 touch rbnx-build/.rbnx-built
 echo "[robot_description/build] complete ($MODE)"
-
