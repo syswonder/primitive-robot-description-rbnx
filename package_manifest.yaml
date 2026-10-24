@@ -14,4 +14,5 @@ stop: bash scripts/stop.sh
 
 capabilities:
   - name: robonix/primitive/robot_description/driver
+    transport: grpc
 
